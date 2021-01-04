@@ -7,28 +7,28 @@ const {
 const { flatsSequence, sharpsSequence } = CHORD_CIRCLE_SEQUENCE
 const { normalizeArr, parseNoteName } = require('./utilities.js')
 
-const getNoteNames = (n, notePattern) => {
+const getNoteObject = (n, notePattern) => {
 	const notesIndex = normalizeArr(notePattern(n), 7)
 	const noteNames = notesIndex.map(n => NOTES[n])
 
 	return noteNames
 }
 
-const getAlterations = (chordNotes, semitonePattern) => {
-	const rootSt = chordNotes[0].semitone
+const getAlterations = (noteObjects, rootAlt, semitonePattern) => {
+	const rootSt = noteObjects[0].semitone + rootAlt
 	const chordIntervals = normalizeArr(semitonePattern(rootSt), 12)
 	const alterations = chordIntervals.map(
-		(st, i) => st - chordNotes[i].semitone
+		(st, i) => st - noteObjects[i].semitone
 	)
 
 	return alterations
 }
 
-const getChordNotes = (n, notePattern, semitonePattern) => {
-	const noteNames = getNoteNames(n, notePattern)
-	const chordAlterations = getAlterations(noteNames, semitonePattern)
+const getChordNotes = (n, rootAlt, notePattern, semitonePattern) => {
+	const noteObjects = getNoteObject(n, notePattern)
+	const chordAlterations = getAlterations(noteObjects, rootAlt,semitonePattern)
 
-	const chordNotes = noteNames.map((note, i) => {
+	const chordNotes = noteObjects.map((note, i) => {
 		const alt = chordAlterations[i]
 		return {
 			preFormatted: {
@@ -42,11 +42,11 @@ const getChordNotes = (n, notePattern, semitonePattern) => {
 	return chordNotes
 }
 
-const getChord = (n, chordType) => {
+const getChord = (n, rootAlt, chordType) => {
 	const { notePattern, semitonePattern, symbolPostfix } = CHORD_PROPERTIES[
 		chordType
 	]
-	const notes = getChordNotes(n, notePattern, semitonePattern)
+	const notes = getChordNotes(n, rootAlt, notePattern, semitonePattern)
 	const rootNote = notes[0].name
 
 	const chord = {
@@ -59,18 +59,17 @@ const getChord = (n, chordType) => {
 }
 
 const getAllChords = chordType => {
-/* 	const chordC = getChord(0, chordType)
-	const allChords = [chordC] */
-	const allChords = []
+ 	const chordC = getChord(0, chordType)
+	const allChords = [chordC] 
 
-	for (let i = 1; i < 6; i++) {
+	for (let i = 1; i <= 6; i++) {
 		const nSharp = sharpsSequence(i)
 		const nFlat = flatsSequence(i)
 
 		const sharpChord = getChord(nSharp, chordType)
 		const flatChord = getChord(nFlat, chordType)
 
-		//allChords.push(sharpChord)
+		allChords.push(sharpChord)
 		allChords.push(flatChord)
 	}
 

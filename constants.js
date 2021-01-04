@@ -29,6 +29,25 @@ module.exports.NOTES = [
 	},
 ]
 
+module.exports.INTERVALS = {
+	majorSecond: {
+		wt: 1,
+		st: 2
+	},
+	majorThird: {
+		wt: 2,
+		st: 4
+	},
+	perfectFourth: {
+		wt: 3,
+		st: 5
+	},
+	perfectFifth: {
+		wt: 4,
+		st: 7
+	}
+}
+
 const CHORD_PATTERNS = {
 	triadic: n => [n, n + 2, n + 4],
 	tetradic: n => [n, n + 2, n + 4, n + 1],
@@ -53,6 +72,6 @@ module.exports.CHORD_PROPERTIES = {
 }
 
 module.exports.CHORD_CIRCLE_SEQUENCE = {
-	sharpsSequence: i => (i * 3) % 6,
-	flatsSequence: i => (i * 4) % 6,
+	sharpsSequence: i => (i * 4) % 7,
+	flatsSequence: i => (i * 3) % 7,
 }
