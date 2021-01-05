@@ -1,79 +1,49 @@
 const {
-	NOTES,
 	CHORD_PROPERTIES,
-	CHORD_CIRCLE_SEQUENCE,
+	INTERVALS,
 } = require('./constants')
 
-const { flatsSequence, sharpsSequence } = CHORD_CIRCLE_SEQUENCE
-const { normalizeArr, parseNoteName } = require('./utilities.js')
+const { getNotesByInterval, getNoteByInterval } = require('./utilities.js')
 
-const getNoteObject = (n, notePattern) => {
-	const notesIndex = normalizeArr(notePattern(n), 7)
-	const noteNames = notesIndex.map(n => NOTES[n])
-
-	return noteNames
-}
-
-const getAlterations = (noteObjects, rootAlt, semitonePattern) => {
-	const rootSt = noteObjects[0].semitone + rootAlt
-	const chordIntervals = normalizeArr(semitonePattern(rootSt), 12)
-	const alterations = chordIntervals.map(
-		(st, i) => st - noteObjects[i].semitone
+const getChordNotes = (rootNote, chordPattern) => {
+	const chordNotes = chordPattern.map(interval =>
+		getNoteByInterval(interval, rootNote.mxml)
 	)
-
-	return alterations
-}
-
-const getChordNotes = (n, rootAlt, notePattern, semitonePattern) => {
-	const noteObjects = getNoteObject(n, notePattern)
-	const chordAlterations = getAlterations(noteObjects, rootAlt,semitonePattern)
-
-	const chordNotes = noteObjects.map((note, i) => {
-		const alt = chordAlterations[i]
-		return {
-			preFormatted: {
-				alt,
-				name: note.name,
-			},
-			name: parseNoteName(note.name, alt),
-		}
-	})
-
 	return chordNotes
 }
 
-const getChord = (n, rootAlt, chordType) => {
-	const { notePattern, semitonePattern, symbolPostfix } = CHORD_PROPERTIES[
-		chordType
-	]
-	const notes = getChordNotes(n, rootAlt, notePattern, semitonePattern)
-	const rootNote = notes[0].name
+const getChord = (rootNote, chordType) => {
+	const { chordPattern, symbolPostfix } = CHORD_PROPERTIES[chordType]
+	const notes = getChordNotes(rootNote, chordPattern)
 
 	const chord = {
 		notes,
-		name: `${rootNote} ${chordType}`,
-		symbol: `${rootNote}${symbolPostfix}`,
+		name: `${rootNote.name} ${chordType}`,
+		symbol: `${rootNote.name}${symbolPostfix}`,
 	}
 
 	return chord
 }
 
-const getAllChords = chordType => {
- 	const chordC = getChord(0, chordType)
-	const allChords = [chordC] 
-
-	for (let i = 1; i <= 6; i++) {
-		const nSharp = sharpsSequence(i)
-		const nFlat = flatsSequence(i)
-
-		const sharpChord = getChord(nSharp, chordType)
-		const flatChord = getChord(nFlat, chordType)
-
-		allChords.push(sharpChord)
-		allChords.push(flatChord)
+const getChords = (chordType, amount) => {
+	const CNote = {
+		mxml: {
+			alt: 0,
+			octave: 0,
+			nameNatural: 'C',
+			st: 0,
+			wt: 0,
+		},
+		name: 'C',
 	}
 
+	const flatRoots = getNotesByInterval(INTERVALS.perfectFourth, amount)
+	const sharpRoots = getNotesByInterval(INTERVALS.perfectFifth, amount)
+
+	const allRoots = [CNote, ...flatRoots, ...sharpRoots]
+
+	const allChords = allRoots.map(root => getChord(root, chordType))
 	return allChords
 }
 
-console.log(getAllChords('major'))
+console.log(getChords('major', 6))
