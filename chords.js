@@ -3,7 +3,7 @@ const {
 	INTERVALS,
 } = require('./constants')
 
-const { getNotesByInterval, getNoteByInterval } = require('./utilities.js')
+const { getNotesByInterval, getNoteByInterval } = require('./notes.js')
 
 const getChordNotes = (rootNote, chordPattern) => {
 	const chordNotes = chordPattern.map(interval =>
@@ -46,4 +46,3 @@ const getChords = (chordType, amount) => {
 	return allChords
 }
 
-console.log(getChords('major', 6))

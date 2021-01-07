@@ -1,7 +1,5 @@
 const { NOTES } = require('./constants')
 
-module.exports.normalizeArr = (arr, maxValue) => arr.map(e => e % maxValue)
-
 module.exports.parseNoteName = ({ wt, alt }) => {
 	if (alt === -1) {
 		alt = 'b'
@@ -24,7 +22,7 @@ module.exports.getNoteAlteration = ({ wt: noteWt, st: noteSt }) => {
 }
 
 module.exports.getNoteByInterval = (interval, rootNote) => {
-	const octave = Math.floor((rootNote.wt + interval.wt) / 7)
+	const octave = Math.floor((rootNote.wt + interval.wt) / 7) + 4
 	const wt = (rootNote.wt + interval.wt) % 7
 	const st = (rootNote.st + interval.st) % 12
 
@@ -50,7 +48,7 @@ module.exports.getNotesByInterval = (interval, maxNotes) => {
         const { wt: intervalWt, st: intervalSt } = interval
 
 		const mxml = {
-            octave: 0,
+            octave: 4,
             st: (intervalSt * i) % 12,
 			wt: (intervalWt * i) % 7,
         }
