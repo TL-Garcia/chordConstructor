@@ -1,3 +1,12 @@
+module.exports.C_Note = {
+	data: {
+		alt: 0,
+		st: 0,
+		wt: 0,
+	},
+	name: 'C',
+}
+
 module.exports.NOTES = [
 	{
 		name: 'C',
@@ -87,7 +96,7 @@ module.exports.CHORD_PROPERTIES = {
 	},
 	minor: {
 		symbolPostfix: 'm',
-		chordPattern: [unison, minorThird, perfectFifth]
+		chordPattern: [unison, minorThird, perfectFifth],
 	},
 	'major seventh': {
 		symbolPostfix: 'maj7',

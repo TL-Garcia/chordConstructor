@@ -1,13 +1,10 @@
-const {
-	CHORD_PROPERTIES,
-	INTERVALS,
-} = require('./constants')
+const { CHORD_PROPERTIES, INTERVALS, C_Note } = require('./constants')
 
 const { getNotesByInterval, getNoteByInterval } = require('./notes.js')
 
 const getChordNotes = (rootNote, chordPattern) => {
-	const chordNotes = chordPattern.map(interval =>
-		getNoteByInterval(interval, rootNote.mxml)
+	const chordNotes = chordPattern.map(
+		interval => getNoteByInterval(interval, rootNote).name
 	)
 	return chordNotes
 }
@@ -25,24 +22,14 @@ const getChord = (rootNote, chordType) => {
 	return chord
 }
 
-const getChords = (chordType, amount) => {
-	const CNote = {
-		mxml: {
-			alt: 0,
-			octave: 0,
-			nameNatural: 'C',
-			st: 0,
-			wt: 0,
-		},
-		name: 'C',
-	}
+const getChords = (amount, chordType, rootNote) => {
+	const flatRoots = getNotesByInterval(INTERVALS.perfectFourth, amount, rootNote)
+	const sharpRoots = getNotesByInterval(INTERVALS.perfectFifth, amount, rootNote)
 
-	const flatRoots = getNotesByInterval(INTERVALS.perfectFourth, amount)
-	const sharpRoots = getNotesByInterval(INTERVALS.perfectFifth, amount)
-
-	const allRoots = [CNote, ...flatRoots, ...sharpRoots]
+	const allRoots = [rootNote, ...flatRoots, ...sharpRoots]
 
 	const allChords = allRoots.map(root => getChord(root, chordType))
 	return allChords
 }
 
+console.log(getChords(6, 'major', C_Note))
