@@ -9,7 +9,7 @@ const getChordNotes = (rootNote, chordPattern) => {
 	return chordNotes
 }
 
-const getChord = (rootNote, chordType) => {
+module.exports.getChord = (rootNote, chordType) => {
 	const { chordPattern, symbolPostfix } = CHORD_PROPERTIES[chordType]
 	const notes = getChordNotes(rootNote, chordPattern)
 
@@ -22,14 +22,12 @@ const getChord = (rootNote, chordType) => {
 	return chord
 }
 
-const getChords = (amount, chordType, rootNote) => {
+module.exports.getChords = (amount, chordType, rootNote) => {
 	const flatRoots = getNotesByInterval(INTERVALS.perfectFourth, amount, rootNote)
 	const sharpRoots = getNotesByInterval(INTERVALS.perfectFifth, amount, rootNote)
 
 	const allRoots = [rootNote, ...flatRoots, ...sharpRoots]
 
-	const allChords = allRoots.map(root => getChord(root, chordType))
+	const allChords = allRoots.map(root => this.getChord(root, chordType))
 	return allChords
 }
-
-console.log(getChords(6, 'major', C_Note))
