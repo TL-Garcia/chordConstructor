@@ -1,7 +1,7 @@
 {
-  "name": "chordConstructor",
+  "name": "chord-constructor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creates music chords as JSON objects",
   "main": "chords.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/TL-Garcia/chordConstructor.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "TL-Garcia <tomas.bl.garcia@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TL-Garcia/chordConstructor/issues"

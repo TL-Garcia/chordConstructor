@@ -1,42 +1,41 @@
-module.exports.C_Note = {
-	data: {
-		alt: 0,
-		st: 0,
-		wt: 0,
-	},
-	name: 'C',
-}
-
-module.exports.NOTES = [
+module.exports.NOTES= [
 	{
 		name: 'C',
-		semitone: 0,
+		wt: 0,
+		st: 0,
 	},
 	{
 		name: 'D',
-		semitone: 2,
+		wt: 1,
+		st: 2,
 	},
 	{
 		name: 'E',
-		semitone: 4,
+		wt: 2,
+		st: 4,
 	},
 	{
 		name: 'F',
-		semitone: 5,
+		wt: 3,
+		st: 5,
 	},
 	{
 		name: 'G',
-		semitone: 7,
+		wt: 4,
+		st: 7,
 	},
 	{
 		name: 'A',
-		semitone: 9,
+		wt: 5,
+		st: 9,
 	},
 	{
 		name: 'B',
-		semitone: 11,
+		wt: 6,
+		st: 11,
 	},
 ]
+
 
 module.exports.INTERVALS = {
 	unison: {

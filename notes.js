@@ -9,19 +9,41 @@ module.exports.parseNoteName = ({ wt, alt }) => {
 		alt = ''
 	}
 
-	const naturalNote = NOTES[wt]
+	const [naturalNote] = NOTES.filter(n => n.wt === wt)
 
 	return `${naturalNote.name}${alt}`
 }
 
-module.exports.getNoteAlteration = ({ wt: noteWt, st: noteSt }) => {
-	const naturalNoteSt = NOTES[noteWt].semitone
-	const alteration = noteSt - naturalNoteSt
+module.exports.parseNoteFromName = name => {
+	const [naturalName, altSymbol] = name
+
+	const [naturalNote] = NOTES.filter(n => n.name === naturalName)
+	const { st, wt } = naturalNote
+
+	const data = { st, wt, alt: 0 }
+
+	if (altSymbol === 'b') {
+		data.alt = -1
+	} else if (altSymbol === '#') {
+		data.alt = 1
+	}
+
+	const note = {
+		name,
+		data,
+	}
+
+	return note
+}
+
+module.exports.getNoteAlteration = ({ wt, st }) => {
+	const [naturalNote] = NOTES.filter(n => n.wt === wt)
+	const alteration = st - naturalNote.st
 
 	return alteration
 }
 
-module.exports.getNoteByInterval = (interval, {data: rootNotedata}) => {
+module.exports.getNoteByInterval = (interval, { data: rootNotedata }) => {
 	const wt = (rootNotedata.wt + interval.wt) % 7
 	const st = (rootNotedata.st + interval.st) % 12
 	const alt = this.getNoteAlteration({ wt, st })
@@ -40,7 +62,7 @@ module.exports.getNoteByInterval = (interval, {data: rootNotedata}) => {
 
 module.exports.getNotesByInterval = (interval, maxNotes, rootNote) => {
 	const notes = []
-	let currentRoot = rootNote 
+	let currentRoot = rootNote
 
 	for (let i = 1; i <= maxNotes; i++) {
 		const note = this.getNoteByInterval(interval, currentRoot)
