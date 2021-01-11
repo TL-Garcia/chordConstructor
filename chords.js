@@ -1,4 +1,4 @@
-const { CHORD_PROPERTIES, INTERVALS, C_Note } = require('./constants')
+const { CHORD_PROPERTIES, INTERVALS } = require('./constants')
 
 const {
 	getNotesByInterval,
@@ -13,7 +13,7 @@ const getChordNotes = (rootNote, chordPattern) => {
 	return chordNotes
 }
 
-module.exports.getChord = (rootNote, chordType) => {
+const getChord = (rootNote, chordType) => {
 	const { chordPattern, symbolPostfix } = CHORD_PROPERTIES[chordType]
 	const notes = getChordNotes(rootNote, chordPattern)
 
@@ -26,21 +26,21 @@ module.exports.getChord = (rootNote, chordType) => {
 	return chord
 }
 
-module.exports.getChords = (amount, chordType, rootName, opts) => {
+module.exports.getChords = (chordType, amount = 6, rootName = 'C', opts) => {
 	const rootNote = parseNoteFromName(rootName)
 
 	const flatRoots =
-		opts.getFlats === false
+		opts?.getFlats === false
 			? []
 			: getNotesByInterval(INTERVALS.perfectFourth, amount, rootNote)
 
 	const sharpRoots =
-		opts.getSharps === false
+		opts?.getSharps === false
 			? []
 			: getNotesByInterval(INTERVALS.perfectFifth, amount, rootNote)
 
 	const allRoots = [rootNote, ...flatRoots, ...sharpRoots]
 
-	const allChords = allRoots.map(root => this.getChord(root, chordType))
+	const allChords = allRoots.map(root => getChord(root, chordType))
 	return allChords
 }

@@ -1,4 +1,4 @@
-module.exports.NOTES= [
+module.exports.NOTES = [
 	{
 		name: 'C',
 		wt: 0,
@@ -36,7 +36,6 @@ module.exports.NOTES= [
 	},
 ]
 
-
 module.exports.INTERVALS = {
 	unison: {
 		wt: 0,
@@ -58,13 +57,37 @@ module.exports.INTERVALS = {
 		wt: 2,
 		st: 4,
 	},
+	diminishedFourth: {
+		wt: 3,
+		st: 4,
+	},
 	perfectFourth: {
 		wt: 3,
 		st: 5,
 	},
+	augmentedFourth: {
+		wt: 3,
+		st: 6,
+	},
+	diminishedFifth: {
+		wt: 4,
+		st: 6
+	},
 	perfectFifth: {
 		wt: 4,
 		st: 7,
+	},
+	augmentedFifth: {
+		wt: 4,
+		st: 8
+	},
+	minorSixth: {
+		wt: 5,
+		st: 8
+	},
+	majorSixth: {
+		wt: 5,
+		st: 9
 	},
 	minorSeventh: {
 		wt: 6,
