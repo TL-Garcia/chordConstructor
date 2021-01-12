@@ -33,7 +33,7 @@ The whole array of root notes would be:
 
 And therefore the output would be an array of those 13 chords
 
-### Arguments
+## Arguments
 
 `getChords(chordType, amount, rootName, options)`
 
