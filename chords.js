@@ -29,6 +29,7 @@ const getChord = (rootNote, chordType) => {
 module.exports.getChords = (chordType, amount = 6, rootName = 'C', opts) => {
 	const rootNote = parseNoteFromName(rootName)
 
+
 	const flatRoots =
 		opts?.getFlats === false
 			? []
@@ -44,3 +45,5 @@ module.exports.getChords = (chordType, amount = 6, rootName = 'C', opts) => {
 	const allChords = allRoots.map(root => getChord(root, chordType))
 	return allChords
 }
+
+console.log(this.getChords('half diminished'))

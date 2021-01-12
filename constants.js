@@ -49,6 +49,10 @@ module.exports.INTERVALS = {
 		wt: 1,
 		st: 2,
 	},
+	augmentedSecond: {
+		wt: 1,
+		st: 3,
+	},
 	minorThird: {
 		wt: 2,
 		st: 3,
@@ -89,6 +93,10 @@ module.exports.INTERVALS = {
 		wt: 5,
 		st: 9
 	},
+	diminishedSeventh: {
+		wt: 6,
+		st: 9
+	},
 	minorSeventh: {
 		wt: 6,
 		st: 10,
@@ -103,10 +111,18 @@ const {
 	unison,
 	minorSecond,
 	majorSecond,
+	augmentedSecond,
 	minorThird,
 	majorThird,
+	diminishedFourth,
 	perfectFourth,
+	augmentedFourth,
+	diminishedFifth,
 	perfectFifth,
+	augmentedFifth,
+	minorSixth,
+	majorSixth,
+	diminishedSeventh,
 	minorSeventh,
 	majorSeventh,
 } = this.INTERVALS
@@ -124,4 +140,20 @@ module.exports.CHORD_PROPERTIES = {
 		symbolPostfix: 'maj7',
 		chordPattern: [unison, majorThird, perfectFifth, majorSeventh],
 	},
+	'minor seventh': {
+		symbolPostfix: 'min7',
+		chordPattern: [unison, minorThird, perfectFifth, minorSeventh]
+	},
+	'half diminished': {
+		symbolPostfix: 'ø7',
+		chordPattern: [unison, minorThird, perfectFifth, minorSeventh]
+	},
+	'diminished seventh': {
+		symbolPostfix: 'o7',
+		chordPattern: [unison, minorThird, diminishedFifth, diminishedSeventh]
+	},
+	'powerchord': {
+		symbolPostfix: '5',
+		chordPattern: [unison, perfectFifth, unison]
+	}
 }

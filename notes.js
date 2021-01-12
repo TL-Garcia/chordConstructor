@@ -1,17 +1,26 @@
 const { NOTES } = require('./constants')
 
-module.exports.parseNoteName = ({ wt, alt }) => {
-	if (alt === -1) {
-		alt = 'b'
-	} else if (alt === 1) {
-		alt = '#'
+const parseAltSymbol = alt => {
+	if (alt === 0) {
+		return ''
 	} else {
-		alt = ''
+		const symbol = alt < 0 ? 'b' : '#'
+		const altSymbol = []
+
+		for (let i = 0; i < Math.abs(alt); i++) {
+			altSymbol.push(symbol)
+		}
+
+		return altSymbol.join('')
 	}
+}
+
+module.exports.parseNoteName = ({ wt, alt }) => {
+	const altSymbol = parseAltSymbol(alt)
 
 	const [naturalNote] = NOTES.filter(n => n.wt === wt)
 
-	return `${naturalNote.name}${alt}`
+	return `${naturalNote.name}${altSymbol}`
 }
 
 module.exports.parseNoteFromName = name => {
@@ -24,8 +33,10 @@ module.exports.parseNoteFromName = name => {
 
 	if (altSymbol === 'b') {
 		data.alt = -1
+		data.st = data.st - 1
 	} else if (altSymbol === '#') {
 		data.alt = 1
+		data.st = data.st + 1
 	}
 
 	const note = {
@@ -38,7 +49,14 @@ module.exports.parseNoteFromName = name => {
 
 module.exports.getNoteAlteration = ({ wt, st }) => {
 	const [naturalNote] = NOTES.filter(n => n.wt === wt)
-	const alteration = st - naturalNote.st
+	let alteration = st - naturalNote.st
+
+	//for the edge case of Cb and B#
+	if (alteration === 11) {
+		alteration = -1
+	} else if (alteration === -11) {
+		alteration = 1
+	}
 
 	return alteration
 }
