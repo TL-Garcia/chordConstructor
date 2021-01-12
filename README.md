@@ -41,9 +41,12 @@ C major chord:
 >- major
 >- minor
 >- major seventh
+>- minor seventh
+>- semi diminished seventh
+>- diminished seventh (1 bug)
+>- power chord
 =======
 ## Arguments
->>>>>>> 634a7e253f6c1842b21e27c3094766c41e47f051
 
 + **amount:** Number. The amount of alterations that you want to iterate through. Default is `amount = 6`:
 
