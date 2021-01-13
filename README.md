@@ -37,7 +37,7 @@ C major chord:
 
 + **chordType:** String. The types of chords can be found in `constants.js`. I only made so many, but feel free to expand. The current full list is: 
 
-<<<<<<< HEAD
+
 >- major
 >- minor
 >- major seventh
@@ -45,7 +45,7 @@ C major chord:
 >- semi diminished seventh
 >- diminished seventh (1 bug)
 >- power chord
-=======
+
 ## Arguments
 
 + **amount:** Number. The amount of alterations that you want to iterate through. Default is `amount = 6`:
